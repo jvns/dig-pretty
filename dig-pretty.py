@@ -37,19 +37,14 @@ def pretty_print(output):
 
 def format_record(q):
     parts = q.split()
-    name, ttl, _class, typ = parts[:4]
+    name, ttl, class_, type_ = parts[:4]
     answer = " ".join(parts[4:])
-    # Don't include the class because it's basically always IN and I find it
-    # redundant.
-    # This is maybe a controversial decision but I have personally never seen a
-    # HESIOD or CHAOS DNS record in my life.
-    return f"{name}\t{ttl}\t{typ}\t{answer}"
+    return f"{name}\t{ttl}\t{class_}\t{type_}\t{answer}"
 
 
 def format_question(q):
-    name, cls, typ = q.split()
-    # again, leave out the class
-    return f"{name}\t{typ}"
+    name, class_, type_ = q.split()
+    return f"{name}\t{class_}\t{type_}"
 
 
 def color(text, color):
