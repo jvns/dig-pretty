@@ -60,6 +60,7 @@ Tools like [dog](https://github.com/ogham/dog) or
 [doggo](https://github.com/mr-karan/doggo) are great but they don't support all
 the options `dig` does, like `+norecurse`.
 
+I think older tools like `dig` deserve nice formatting too :)
 
 ## contributing
 
