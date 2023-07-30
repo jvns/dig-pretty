@@ -63,4 +63,4 @@ the options `dig` does, like `+norecurse`.
 
 ## contributing
 
-I don't necessarily plan to maintain this long term but bug fixes are welcome!
+I don't necessarily plan to maintain this long term or add a lot of features but bug fixes are welcome!
