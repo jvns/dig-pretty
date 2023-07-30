@@ -13,7 +13,7 @@ def run_dig(args):
     return out.decode("utf-8")
 
 
-def pretty_print(output):
+def pretty_print(output, is_tty):
     try:
         parsed = yaml.safe_load(output)
     except:
@@ -27,12 +27,12 @@ def pretty_print(output):
             print(f"======== Querying: {p['message']['response_address']} =========")
             print("")
 
-            print_record(p["message"]["response_message_data"])
+            print_record(p["message"]["response_message_data"], is_tty)
         return
     resp = parsed[0]
     server = f"{resp['message']['response_address']}:{resp['message']['response_port']}"
     print(f"SERVER: {server} ({resp['message']['socket_protocol']})")
-    print_record(resp["message"]["response_message_data"])
+    print_record(resp["message"]["response_message_data"], is_tty)
 
 
 def format_record(q):
@@ -47,7 +47,9 @@ def format_question(q):
     return f"{name}\t{class_}\t{type_}"
 
 
-def color(text, color):
+def color(text, color, is_tty):
+    if not is_tty:
+        return text
     if color == "green":
         return "\033[92m" + text + "\033[0m"
     elif color == "red":
@@ -56,16 +58,16 @@ def color(text, color):
         raise Exception(f"unknown color {color}")
 
 
-def color_status(status):
+def color_status(status, is_tty):
     if status == "NOERROR":
-        return color(status, "green")
+        return color(status, "green", is_tty)
     else:
-        return color(status, "red")
+        return color(status, "red", is_tty)
 
 
-def print_record(data):
+def print_record(data, is_tty):
     print("HEADER:")
-    print(f"  status: {color_status(data['status'])}")
+    print(f"  status: {color_status(data['status'], is_tty)}")
     print(f"  opcode: {data['opcode']}")
     print(f"  id: {data['id']}")
     print(f"  flags: {data['flags']}")
@@ -102,8 +104,9 @@ def print_record(data):
 
 
 if __name__ == "__main__":
-
     args = sys.argv[1:]
     args.append("+yaml")
+    # check if output is a pipe
+    is_tty = sys.stdout.isatty()
     output = run_dig(args)
-    pretty_print(output)
+    pretty_print(output, is_tty)
