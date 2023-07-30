@@ -30,6 +30,7 @@ dig-pretty @8.8.8.8 example.com
 
 ## example output
 
+
 ```
 $ dig-pretty example.com
 SERVER: 192.168.1.1:53 (UDP)
@@ -49,6 +50,33 @@ QUESTION SECTION:
 ANSWER SECTION:
   example.com.	78709	IN	A	93.184.216.34
 ```
+
+Compare this to the `dig` output for the same query:
+
+```
+$ dig example.com
+; <<>> DiG 9.10.6 <<>> +all example.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 5151
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;example.com.		IN	A
+
+;; ANSWER SECTION:
+example.com.		83385	A	93.184.216.34
+
+;; Query time: 57 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1)
+;; WHEN: Sun Jul 30 14:22:44 EDT 2023
+;; MSG SIZE  rcvd: 56
+```
+
+(`dig-pretty` leaves out the query timing information and message size because
+I've never used that information and it's not part of the DNS record itself)
 
 ## why not `dog`?
 
