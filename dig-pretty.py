@@ -47,16 +47,17 @@ def print_summary(resp):
     )
 
 
-def format_record(q):
+def format_record(q, is_tty):
     parts = q.split()
     name, ttl, class_, type_ = parts[:4]
     answer = " ".join(parts[4:])
-    return f"{name}\t{ttl}\t{class_}\t{type_}\t{answer}"
+    # the colours here are arbitrary
+    return f"{color(name, 'blue', is_tty)}\t{color(ttl, 'cyan', is_tty)}\t{class_}\t{color(type_, 'magenta', is_tty)}\t{color(answer, 'green', is_tty)}"
 
 
-def format_question(q):
+def format_question(q, is_tty):
     name, class_, type_ = q.split()
-    return f"{name}\t{class_}\t{type_}"
+    return f"{color(name, 'blue', is_tty)}\t{class_}\t{color(type_, 'magenta', is_tty)}"
 
 
 def color(text, color, is_tty):
@@ -66,6 +67,14 @@ def color(text, color, is_tty):
         return "\033[92m" + text + "\033[0m"
     elif color == "red":
         return "\033[91m" + text + "\033[0m"
+    elif color == "yellow":
+        return "\033[93m" + text + "\033[0m"
+    elif color == "blue":
+        return "\033[94m" + text + "\033[0m"
+    elif color == "magenta":
+        return "\033[95m" + text + "\033[0m"
+    elif color == "cyan":
+        return "\033[96m" + text + "\033[0m"
     else:
         raise Exception(f"unknown color {color}")
 
@@ -96,22 +105,22 @@ def print_record(data, is_tty):
     if "QUESTION_SECTION" in data:
         print("QUESTION SECTION:")
         for q in data["QUESTION_SECTION"]:
-            print(f"  {format_question(q)}")
+            print(f"  {format_question(q, is_tty)}")
         print("")
     if "ANSWER_SECTION" in data:
         print("ANSWER SECTION:")
         for q in data["ANSWER_SECTION"]:
-            print(f"  {format_record(q)}")
+            print(f"  {format_record(q, is_tty)}")
         print("")
     if "AUTHORITY_SECTION" in data:
         print("AUTHORITY SECTION:")
         for q in data["AUTHORITY_SECTION"]:
-            print(f"  {format_record(q)}")
+            print(f"  {format_record(q, is_tty)}")
         print("")
     if "ADDITIONAL_SECTION" in data:
         print("ADDITIONAL SECTION:")
         for q in data["ADDITIONAL_SECTION"]:
-            print(f"  {format_record(q)}")
+            print(f"  {format_record(q, is_tty)}")
         print("")
 
 
