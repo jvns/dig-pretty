@@ -10,13 +10,71 @@ contribute a different output format to `dig`.
 
 ## installation
 
-You'll need Python 3 and `pyyaml` installed.
+### pipx (recommended)
+
+To install dig-pretty with [pipx], run
 
 ```
-pip install pyyaml
+pipx install git+https://github.com/jvns/dig-pretty.git
 ```
 
-Then put it in your PATH somewhere
+Alternatively, you can run it directly without installing pipx like this:
+
+```
+pipx run --spec git+https://github.com/jvns/dig-pretty.git dig-pretty example.com
+```
+
+
+[pipx]: https://pypa.github.io/pipx/
+
+
+### pip
+
+```
+pip install --user git+https://github.com/jvns/dig-pretty.git
+```
+
+This might not work with your system pip! On at least macOS, and likely on
+versions of Debian and Ubuntu released prior to 2023, you'll need to install a
+more recent pip.
+
+If you see output like this:
+```
+Successfully built UNKNOWN
+Installing collected packages: UNKNOWN
+  Attempting uninstall: UNKNOWN
+    Found existing installation: UNKNOWN 0.0.0
+    Uninstalling UNKNOWN-0.0.0:
+      Successfully uninstalled UNKNOWN-0.0.0
+Successfully installed UNKNOWN-0.0.0
+```
+
+then it didn't work. To install a more recent pip, run
+```
+pip install --upgrade --user pip
+```
+and watch out for output like this asking you to put a directory on your PATH:
+```
+  WARNING: The scripts pip, pip3, pip3.10 and pip3.9 are installed in '/Users/somebody/Library/Python/3.9/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+```
+
+Make sure that directory is before your system bin directory on your PATH,
+and then re-run the command at the top of this section.
+
+
+## uninstallation
+
+```
+pipx uninstall dig-pretty
+```
+
+or
+
+```
+pip uninstall dig-pretty
+```
+
 
 ## usage
 
