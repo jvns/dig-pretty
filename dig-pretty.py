@@ -30,9 +30,21 @@ def pretty_print(output, is_tty):
             print_record(p["message"]["response_message_data"], is_tty)
         return
     resp = parsed[0]
-    server = f"{resp['message']['response_address']}:{resp['message']['response_port']}"
-    print(f"SERVER: {server} ({resp['message']['socket_protocol']})")
+    print_summary(resp)
     print_record(resp["message"]["response_message_data"], is_tty)
+
+
+def print_summary(resp):
+    # Prints a summary of the server/timing, not really sure about this formatting
+    server = f"{resp['message']['response_address']}:{resp['message']['response_port']}"
+    protocol = resp["message"]["socket_protocol"]
+    size = resp["message"]["message_size"].rstrip("b")
+    elapsed = resp["message"]["response_time"] - resp["message"]["query_time"]
+    # convert timedelta to ms
+    elapsed_ms = int(elapsed.total_seconds() * 1000)
+    print(
+        f"Received response from {server} ({protocol}), {size} bytes in {elapsed_ms}ms"
+    )
 
 
 def format_record(q):

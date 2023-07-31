@@ -33,11 +33,11 @@ dig-pretty @8.8.8.8 example.com
 
 ```
 $ dig-pretty example.com
-SERVER: 192.168.1.1:53 (UDP)
+Received response from 192.168.1.1:53 (UDP), 56 bytes in 12ms
 HEADER:
   status: NOERROR
   opcode: QUERY
-  id: 15451
+  id: 61335
   flags: qr rd ra
   records: QUESTION: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
 
@@ -48,7 +48,7 @@ QUESTION SECTION:
   example.com.	IN	A
 
 ANSWER SECTION:
-  example.com.	78709	IN	A	93.184.216.34
+  example.com.	81459	IN	A	93.184.216.34
 ```
 
 Compare this to the `dig` output for the same query:
