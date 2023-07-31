@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dig-pretty"
+version = "0.0.1"
+authors = [{name = "Julia Evans"}]
+description = "Make dig's output prettier"
+license = { text = "MIT License " }
+dependencies = [
+  "PyYAML>=6.0"
+]
+scripts = { dig-pretty = "dig_pretty:main"}
+
+[tool.setuptools]
+py-modules = ["dig_pretty"]
